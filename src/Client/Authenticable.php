@@ -47,7 +47,7 @@ trait Authenticable
         return $response;
     }
 
-    private function authorize() 
+    public function authorize() 
     {
         return redirect()->away('https://api.getgo.com/oauth/v2/authorize?
         client_id='.config('goto.client_id').'
