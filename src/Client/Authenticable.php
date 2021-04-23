@@ -49,10 +49,7 @@ trait Authenticable
 
     public function authorize() 
     {
-        return redirect()->away('https://api.getgo.com/oauth/v2/authorize?
-        client_id='.config('goto.client_id').'
-        &response_type=code
-        &redirect_uri='.config('goto.callback_url').'');
+        return redirect()->away('https://api.getgo.com/oauth/v2/authorize?client_id='.config('goto.client_id').'&response_type=code&redirect_uri='.config('goto.callback_url').'');
     }
 
     private function authenticateDirect()
