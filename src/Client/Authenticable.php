@@ -20,7 +20,7 @@ trait Authenticable
                 $this->refreshAccessToken();
             } else {
                 //Perform fresh authentication for bearer and refresh token
-                $this->authenticateDirect();
+                $this->authorize();
             }
         }
 
@@ -45,6 +45,14 @@ trait Authenticable
         $this->setAccessToken($response->access_token, $response->expires_in);
 
         return $response;
+    }
+
+    private function authorize() 
+    {
+        return redirect()->away('https://api.getgo.com/oauth/v2/authorize?
+        client_id='.config('goto.client_id').'
+        &response_type=code
+        &redirect_uri='.config('goto.callback_url').'');
     }
 
     private function authenticateDirect()

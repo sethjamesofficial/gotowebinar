@@ -12,7 +12,7 @@ Route::get('/', function () {
     }
 })->name('goto.status');
 
-Route::get('/authorize-callback', function () {
+Route::get('/authorize/callback', function () {
     try {
         return 'this is the callback!';
     } catch (Slakbal\Gotowebinar\Exception\GotoException $e) {
