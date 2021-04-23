@@ -84,6 +84,11 @@ trait Actions
         return (new GotoClient())->status();
     }
 
+    public function authorize()
+    {
+        return (new GotoClient())->authorize();
+    }
+
     public function authenticate()
     {
         return (new GotoClient())->authenticate();
