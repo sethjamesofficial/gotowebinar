@@ -89,6 +89,11 @@ trait Actions
         return (new GotoClient())->authorize();
     }
 
+    public function authorizeCallback()
+    {
+        return (new GotoClient())->authorizeCallback();
+    }
+
     public function authenticate()
     {
         return (new GotoClient())->authenticate();
