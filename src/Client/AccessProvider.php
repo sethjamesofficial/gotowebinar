@@ -46,6 +46,11 @@ trait AccessProvider
         return Cache::tags($this->cache_tags)->get('access-token');
     }
 
+    private function getAutherizationCode()
+    {
+        return Cache::tags($this->cache_tags)->get('authorization-code');
+    }
+
     private function setAccessInformation($responseObject)
     {
         $this->setAccessToken($responseObject->access_token, $responseObject->expires_in)
@@ -59,6 +64,13 @@ trait AccessProvider
     private function setAccountKey($accountKey)
     {
         Cache::tags($this->cache_tags)->forever('account-key', $accountKey);
+
+        return $this;
+    }
+
+    private function setAutherizationCode($authorizationCode)
+    {
+        Cache::tags($this->cache_tags)->forever('authorization-code', $authorizationCode);
 
         return $this;
     }
@@ -82,6 +94,11 @@ trait AccessProvider
         Cache::tags($this->cache_tags)->put('access-token', $accessToken, $ttlSeconds ?? Carbon::now()->addHour());
 
         return $this;
+    }
+
+    private function hasAutherizationCode()
+    {
+        return Cache::tags($this->cache_tags)->has('authorization-code');
     }
 
     private function hasAccessToken()

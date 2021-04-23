@@ -18,8 +18,11 @@ trait Authenticable
             if ($this->hasRefreshToken()) {
                 //Get new bearer token with refresh token
                 $this->refreshAccessToken();
-            } else {
+            } elseif ($this->hasAutherizationCode()) {
                 //Perform fresh authentication for bearer and refresh token
+                $this->authenticateCode();
+            }else{
+                //Have user provide authorization
                 $this->authorize();
             }
         }
@@ -52,13 +55,32 @@ trait Authenticable
         return redirect()->away('https://api.getgo.com/oauth/v2/authorize?client_id='.config('goto.client_id').'&response_type=code&redirect_uri='.config('goto.callback_url').'');
     }
 
-    private function authenticateDirect()
+    public function authorizeCallback($code)
+    {
+        $this->setAutherizationCode($code);
+        $this->authenticateCode();
+    }
+
+    private function authenticateDirect() //depricated
     {
         $response = $this->sendAuthenticationRequest([
             'grant_type' => 'password',
             'username' => config('goto.direct_username'),
             'password' => config('goto.direct_password'),
             'client_id' => config('goto.client_id'),
+        ]);
+
+        $this->setAccessInformation($response);
+
+        return $response;
+    }
+
+    private function authenticateCode()
+    {
+        $response = $this->sendAuthenticationRequest([
+            'grant_type' => 'authorization_code',
+            'code' => $this->getAutherizationCode(),
+            'redirect_uri' => config('goto.callback_url'),
         ]);
 
         $this->setAccessInformation($response);
