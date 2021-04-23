@@ -37,9 +37,9 @@ trait Authenticable
     private function refreshAccessToken()
     {
         $response = $this->sendAuthenticationRequest([
-                                                         'grant_type' => 'refresh_token',
-                                                         'refresh_token' => $this->getRefreshToken(),
-                                                     ]);
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $this->getRefreshToken(),
+        ]);
 
         //explicitly set only the Access Token so that the refresh token's ttl expiry is not affected
         $this->setAccessToken($response->access_token, $response->expires_in);
@@ -50,11 +50,11 @@ trait Authenticable
     private function authenticateDirect()
     {
         $response = $this->sendAuthenticationRequest([
-                                                         'grant_type' => 'password',
-                                                         'username' => config('goto.direct_username'),
-                                                         'password' => config('goto.direct_password'),
-                                                         'client_id' => config('goto.client_id'),
-                                                     ]);
+            'grant_type' => 'password',
+            'username' => config('goto.direct_username'),
+            'password' => config('goto.direct_password'),
+            'client_id' => config('goto.client_id'),
+        ]);
 
         $this->setAccessInformation($response);
 
@@ -64,15 +64,17 @@ trait Authenticable
     private function sendAuthenticationRequest(array $payload)
     {
         $this->response = Request::post($this->directAuthenticationUrl)
-                                 ->strictSSL($this->strict_ssl)
-                                 ->addHeaders($this->getAuthenticationHeader())
-                                 ->body(http_build_query($payload), 'form')
-                                 ->timeout($this->timeout)
-                                 ->expectsJson()
-                                 ->send();
+            ->strictSSL($this->strict_ssl)
+            ->addHeaders($this->getAuthenticationHeader())
+            ->body(http_build_query($payload), 'form')
+            ->timeout($this->timeout)
+            ->expectsJson()
+            ->send();
 
         if ($this->response->code >= Response::HTTP_BAD_REQUEST) {
-            throw GotoException::responseException($this->response, 'Could not authenticate with the provided credentials.', 'POST');
+            throw GotoException::responseException(
+                $this->response, 'Could not authenticate with the provided credentials.', 'POST'
+            );
         }
 
         return $this->response->body;
