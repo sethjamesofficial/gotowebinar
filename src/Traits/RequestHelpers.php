@@ -1,7 +1,6 @@
 <?php
 
 namespace Slakbal\Gotowebinar\Traits;
-use Illuminate\Support\Arr;
 
 trait RequestHelpers
 {
