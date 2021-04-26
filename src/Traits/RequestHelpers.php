@@ -11,7 +11,7 @@ trait RequestHelpers
      */
     public function getPayload()
     {
-        return $this->toArray2();
+        return $this->toArray();
     }
 
     /**
