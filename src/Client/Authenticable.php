@@ -60,6 +60,10 @@ trait Authenticable
         echo "setAuthorizationCode: <br><br>";
         var_dump( $this->setAuthorizationCode($code) );
         echo "<br><br>";
+        echo "getAuthorizationCode: <br><br>";
+        var_dump( $this->getAuthorizationCode() );
+        
+        echo "<br><br>";
         echo "authenticateCode: <br><br>";
         var_dump( $this->authenticateCode() );
         die();
@@ -83,7 +87,7 @@ trait Authenticable
     {
         $response = $this->sendAuthenticationRequest([
             'grant_type' => 'authorization_code',
-            'code' => $this->getAutherizationCode(),
+            'code' => $this->getAuthorizationCode(),
             'redirect_uri' => config('goto.callback_url'),
         ]);
 
