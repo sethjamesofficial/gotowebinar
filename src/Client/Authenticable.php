@@ -58,10 +58,10 @@ trait Authenticable
     public function authorizeCallback($code)    //got this far... how much further?
     {
         echo "setAuthorizationCode: <br><br>";
-        echo $this->setAuthorizationCode($code);
+        var_dump( $this->setAuthorizationCode($code) );
         echo "<br><br>";
         echo "authenticateCode: <br><br>";
-        echo $this->authenticateCode();
+        var_dump( $this->authenticateCode() );
         die();
     }
 
