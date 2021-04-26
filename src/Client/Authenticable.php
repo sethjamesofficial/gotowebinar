@@ -58,8 +58,8 @@ trait Authenticable
     public function authorizeCallback($code)    //got this far... how much further?
     {
         $this->setAuthorizationCode($code);
-        $this->authenticateCode();
-        return true;
+        $response = $this->authenticateCode();
+        return $response;
     }
 
     private function authenticateDirect() //depricated
