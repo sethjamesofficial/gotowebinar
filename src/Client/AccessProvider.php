@@ -46,7 +46,7 @@ trait AccessProvider
         return Cache::tags($this->cache_tags)->get('access-token');
     }
 
-    private function getAutherizationCode()
+    private function getAuthorizationCode()
     {
         return Cache::tags($this->cache_tags)->get('authorization-code');
     }
@@ -68,7 +68,7 @@ trait AccessProvider
         return $this;
     }
 
-    private function setAutherizationCode($authorizationCode)
+    private function setAuthorizationCode($authorizationCode)
     {
         Cache::tags($this->cache_tags)->forever('authorization-code', $authorizationCode);
 
@@ -96,7 +96,7 @@ trait AccessProvider
         return $this;
     }
 
-    private function hasAutherizationCode()
+    private function hasAuthorizationCode()
     {
         return Cache::tags($this->cache_tags)->has('authorization-code');
     }

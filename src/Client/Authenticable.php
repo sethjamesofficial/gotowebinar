@@ -55,10 +55,14 @@ trait Authenticable
         return redirect()->away('https://api.getgo.com/oauth/v2/authorize?client_id='.config('goto.client_id').'&response_type=code&redirect_uri='.config('goto.callback_url').'');
     }
 
-    public function authorizeCallback($code)
+    public function authorizeCallback($code)    //got this far... how much further?
     {
-        $this->setAutherizationCode($code);
-        $this->authenticateCode();
+        echo "setAuthorizationCode: <br><br>";
+        echo $this->setAuthorizationCode($code);
+        echo "<br><br>";
+        echo "authenticateCode: <br><br>";
+        echo $this->authenticateCode();
+        die();
     }
 
     private function authenticateDirect() //depricated
