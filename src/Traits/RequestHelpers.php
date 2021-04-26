@@ -37,7 +37,7 @@ trait RequestHelpers
         //list of variables to be filtered out
         $ignore = $this->getPayloadExclusions();
 
-        return Arr:where(get_object_vars($this), function ($value, $key) use ($ignore) {
+        return array_where(get_object_vars($this), function ($value, $key) use ($ignore) {
             if (! in_array($key, $ignore)) {
                 return ! empty($value);
             }
