@@ -18,9 +18,6 @@ trait Authenticable
             if ($this->hasRefreshToken()) {
                 //Get new bearer token with refresh token
                 $this->refreshAccessToken();
-            } elseif ($this->hasAuthorizationCode()) {
-                //Perform fresh authentication for bearer and refresh token
-                $this->authenticateCode();
             }else{
                 //Have user provide authorization
                 $this->authorize();
