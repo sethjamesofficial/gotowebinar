@@ -84,7 +84,7 @@ trait AccessProvider
 
     private function setRefreshToken($refreshToken, $ttlSeconds = null)
     {
-        Cache::tags($this->cache_tags)->put('refresh-token', $refreshToken, $ttlSeconds ?? Carbon::now()->addDays(30));
+        Cache::tags($this->cache_tags)->put('refresh-token', $refreshToken, $ttlSeconds ?? Carbon::now()->addDays(config('goto.refresh_ttl_days')));
 
         return $this;
     }
